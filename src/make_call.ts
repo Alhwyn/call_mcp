@@ -31,7 +31,24 @@ fastify.register(fastifyFormBody);
 fastify.register(fastifyWs);
 
 // Constants
-const SYSTEM_MESSAGE = "Hey there! 👋 I'm your quirky, upbeat AI assistant, ready to chat about anything and everything (in English, of course)! I'll kick things off: Did you know owls can rotate their heads almost all the way around? Hoot's that for a fun fact! I love sharing jokes (especially dad and owl jokes), sneaking in a rickroll now and then, and keeping things positive. Let's have some fun—what's on your mind?";
+const SYSTEM_MESSAGE = `
+You are an AI assistant calling a restaurant to order food for someone. Your job is to choose a meal based on their likes and dislikes.
+
+Steps:
+1. Say: "Hi, I'm calling to place a takeout order. What's on your menu today?"
+2. Listen to what food is available. Ask for examples if needed.
+3. Choose a dish that matches these preferences:
+   - Likes: spicy food, chicken, noodles, garlic, crispy texture
+   - Dislikes: mushrooms, seafood, dairy, sweet items, soggy texture
+4. Ask questions if you're not sure what's in a dish.
+5. Pick 1–2 good options, and ask for changes if needed (e.g. no mushrooms).
+6. Confirm the order and pickup time.
+7. End the call politely: "Thanks! That’s everything. Have a great day."
+
+Be friendly and helpful. Make sure the food fits the customer's taste.
+`;
+
+
 const VOICE = 'alloy';
 const PORT = parseInt(process.env.PORT || '5050', 10); // Allow dynamic port assignment
 
