@@ -1,21 +1,22 @@
 # Building a Remote MCP Server on Cloudflare (Without Auth)
 
-This example allows you to deploy a remote MCP server that doesn't require authentication on Cloudflare Workers. 
+This example allows you to deploy a remote MCP server that doesn't require authentication on Cloudflare Workers.
 
-## Get started: 
+## Get started:
 
 [![Deploy to Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/ai/tree/main/demos/remote-mcp-authless)
 
 This will deploy your MCP server to a URL like: `remote-mcp-server-authless.<your-account>.workers.dev/sse`
 
 Alternatively, you can use the command line below to get the remote MCP Server created on your local machine:
+
 ```bash
 npm create cloudflare@latest -- my-mcp-server --template=cloudflare/ai/demos/remote-mcp-authless
 ```
 
 ## Customizing your MCP Server
 
-To add your own [tools](https://developers.cloudflare.com/agents/model-context-protocol/tools/) to the MCP server, define each tool inside the `init()` method of `src/index.ts` using `this.server.tool(...)`. 
+To add your own [tools](https://developers.cloudflare.com/agents/model-context-protocol/tools/) to the MCP server, define each tool inside the `init()` method of `src/index.ts` using `this.server.tool(...)`.
 
 ## Connect to Cloudflare AI Playground
 
@@ -27,7 +28,7 @@ You can connect to your MCP server from the Cloudflare AI Playground, which is a
 
 ## Connect Claude Desktop to your MCP server
 
-You can also connect to your remote MCP server from local MCP clients, by using the [mcp-remote proxy](https://www.npmjs.com/package/mcp-remote). 
+You can also connect to your remote MCP server from local MCP clients, by using the [mcp-remote proxy](https://www.npmjs.com/package/mcp-remote).
 
 To connect to your MCP server from Claude Desktop, follow [Anthropic's Quickstart](https://modelcontextprotocol.io/quickstart/user) and within Claude Desktop go to Settings > Developer > Edit Config.
 
@@ -40,11 +41,44 @@ Update with this configuration:
       "command": "npx",
       "args": [
         "mcp-remote",
-        "http://localhost:8787/sse"  // or remote-mcp-server-authless.your-account.workers.dev/sse
+        "http://localhost:8787/sse" // or remote-mcp-server-authless.your-account.workers.dev/sse
       ]
     }
   }
 }
 ```
 
-Restart Claude and you should see the tools become available. 
+Restart Claude and you should see the tools become available.
+
+## Twilio Call Functionality
+
+This project includes a Twilio call script that can make phone calls using the Twilio API.
+
+### Setup
+
+1. Create a `.env` file in your project root with your Twilio credentials:
+
+```bash
+# Twilio Credentials
+TWILIO_ACCOUNT_SID=your_account_sid_here
+TWILIO_AUTH_TOKEN=your_auth_token_here
+
+# Phone Numbers
+TWILIO_PHONE_NUMBER=your_twilio_phone_number
+TO_PHONE_NUMBER=number_to_call
+```
+
+2. Get your Twilio credentials from [https://console.twilio.com/](https://console.twilio.com/)
+
+3. Run the call script:
+
+```bash
+node ./src/make_call.ts
+```
+
+### Features
+
+- ✅ Environment variable configuration
+- ✅ Error handling with helpful messages
+- ✅ Phone number validation
+- ✅ Call status tracking
